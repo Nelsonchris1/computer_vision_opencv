@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Contours.iml" filepath="$PROJECT_DIR$/.idea/Contours.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Edge detection and Gradient/.idea/Edge detection and Gradient.iml" filepath="$PROJECT_DIR$/../Edge detection and Gradient/.idea/Edge detection and Gradient.iml" />
     </modules>
   </component>
 </project>

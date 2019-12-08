@@ -80,7 +80,7 @@ image = cv2.imread(args["image"])
 # cv2.waitKey(0)
 
 #Detecting shadow and removing shadows from an image
-img = cv2.imread("shadow3.jpg", -1)
+img = cv2.imread("shadow7.jpeg")
 img1 = img.copy()
 
 cv2.imshow("Original", img)
@@ -91,8 +91,8 @@ result_chan =[]
 result_norm_chan = []
 
 for chan in (B, G, R):
-    dilated_img = cv2.dilate(chan, np.ones((7, 7), np.uint8))
-    blurred_img = cv2.medianBlur(dilated_img, 21)
+    dilated_img = cv2.dilate(chan, np.ones((5, 5), np.uint8))
+    blurred_img = cv2.GaussianBlur(dilated_img, (9, 9), 0)
     absdiff_img = 255 - cv2.absdiff(chan, blurred_img)
     norm_img = cv2.normalize(absdiff_img, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8UC1)
     result_chan.append(absdiff_img)
@@ -106,15 +106,16 @@ cv2.waitKey(0)
 
 
 #Detecting and removing shadow from a black and white image
-img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-cv2.imshow("Black and white", img1)
-cv2.waitKey(0)
-
-dilated_img = cv2.dilate(img1, np.ones((7, 7), np.uint8))
-blurred_img = cv2.medianBlur(dilated_img, 21)
-absdiff_img = 255 - cv2.absdiff(img1, blurred_img)
-
-cv2.imshow("Result", absdiff_img)
-cv2.waitKey(0)
+# img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+# cv2.imshow("Black and white", img1)
+# cv2.waitKey(0)
+#
+# dilated_img = cv2.dilate(img1, np.ones((7, 7), np.uint8))
+# blurred_img = cv2.medianBlur(img1, 9)
+# #T, thresh = cv2.threshold(img1, 150, 255,cv2.THRESH_BINARY_INV)
+# absdiff_img = 255 - cv2.absdiff(img1, blurred_img)
+#
+# cv2.imshow("Result", dilated_img)
+# cv2.waitKey(0)
 
 
