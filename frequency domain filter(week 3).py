@@ -2,14 +2,12 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-image = cv2.imread("image_filer.jpg")
-
-print(image.shape)
-
+image0 = cv2.imread("image_filer.jpg")
+beach0 = cv2.imread("beach.png")
 
 
 
-# Pick one color top perform fourier transform to
+
 """
 An image in its original state is a spacial domain image
 To convert this image to the frequency domain, we perform fourier transform on the image  
@@ -17,7 +15,7 @@ To convert this image to the frequency domain, we perform fourier transform on t
 
 def frequency_filter(image, dim = 450, r = 20, return_frames = False):
 
-
+    # Pick one color top perform fourier transform to
     image = cv2.resize(image, (dim, dim), cv2.INTER_AREA)
     image1 = image.copy()
     image2 = image1[:, :, : 2]
@@ -68,21 +66,15 @@ def frequency_filter(image, dim = 450, r = 20, return_frames = False):
 
         # Here we display the Frequency domain image/magnitude spectrum and the filtered image
         stack = np.hstack([magnitude, filtered_img])
-        cv2.imshow("FIltered_image", stack)
+        cv2.imshow("hamming_window_image", stack)
         cv2.waitKey(0)
 
 
 
 
-frequency_filter(image, 450, 5, True)
 
-beach = cv2.imread("beach.png")
-
-frequency_filter(image=beach, dim=300, r= 0 ,return_frames = True)
-
-
-
-image = cv2.imread("image_filer.jpg", 0)
+image1 = cv2.imread("image_filer.jpg", 0)
+beach1 = cv2.imread("beach.png", 0)
 
 def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
     image = cv2.resize(image, (dim, dim), cv2.INTER_AREA)
@@ -90,9 +82,11 @@ def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
 
 
 
-
+    #
     crows, ccols = dim // 2, dim // 2
     mask = np.zeros((dim, dim), np.uint8)
+
+    #Take the brighter part and zero out the values around it
     mask[crows - n: crows + n, ccols - n:ccols + n] = 1
 
     dft = cv2.dft(np.float32(image1), cv2.DFT_COMPLEX_OUTPUT)
@@ -108,10 +102,19 @@ def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
 
     if return_frames == True:
 
-        cv2.imshow("Filtered_image", filtered_img)
+        cv2.imshow("low_Filtered_image", filtered_img)
         cv2.waitKey(0)
 
 
-low_pass_filter(image, 450, 200, True)
-low_pass_filter(image, 450, 100, True)
+# Testing these functions with 2 images
+
+
+low_pass_filter(image1, 450, 200, True)
+low_pass_filter(image1, 400, 100, True)
+
+frequency_filter(image0, 450, 5, True)
+frequency_filter(image0, 500, 10, True)
+
+
+
 
