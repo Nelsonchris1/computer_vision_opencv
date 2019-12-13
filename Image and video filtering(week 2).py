@@ -10,37 +10,37 @@ import matplotlib.pyplot as plt
 # image = cv2.imread(args["image"])
 # cv2.imshow("Original", image)
 # cv2.waitKey(0)
-#
+
 #### image filtering
-#
+
 # image_blur = cv2.blur(image, (3, 3))
 # image_median = cv2.medianBlur(image, 3)
 # image_gaussian = cv2.GaussianBlur(image, (3, 3), 0)
 # image_filter = cv2.bilateralFilter(image, 3, 31, 31)
-#
-#
+
+
 # blurred = np.hstack([image_blur, image_median, image_gaussian, image_filter])
-#
+
 # cv2.imshow("Average, Meidan, Gaussian, Bilateral Filter", blurred)
 # cv2.waitKey(0)
-#
+
 #### invert an image
-#
+
 # invert = cv2.bitwise_not(image)
 # cv2.imshow("Original", image)
 # cv2.imshow("Inverted image", invert)
 # cv2.waitKey(0)
-#
-#
+
+
 # video_capture = cv2.VideoCapture(0)
-#
+
 # frames_per_second = 20
-#
+
 #### Inverting a live vdieo
 # def invert(frame):
 #     return cv2.bitwise_not(frame)
-#
-#
+
+
 #### Create a fuction for a vintage filter
 # def verify_alpha_channel(frame):
 #     try:
@@ -48,7 +48,7 @@ import matplotlib.pyplot as plt
 #     except IndexError:
 #         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
 #     return frame
-#
+
 # def apply_vintage(frame, intensity=0.9):
 #     frame = verify_alpha_channel(frame)
 #     h, w, c = frame.shape
@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 #     cv2.addWeighted(overlay, intensity, frame, 1.0, 0, frame)
 #     frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
 #     return frame
-#
+
 # def HSV(frame):
 #     return cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -68,9 +68,9 @@ import matplotlib.pyplot as plt
 # cv2.imshow("Original", image)
 # cv2.imshow("Vinatge", apply_vintage(image))
 # cv2.waitKey(0)
-#
+
 # #Applying vintage filter to live video
-#
+
 # while True:
 #     _, original_frame = video_capture.read()
 #     Invert = apply_vintage(original_frame.copy())
@@ -78,25 +78,25 @@ import matplotlib.pyplot as plt
 #     cv2.imshow("original_frame", original_frame)
 #     if cv2.waitKey(2) & 0xFF == ord("q"):
 #         break
-#
+
 # video_capture.release()
 # cv2.destroyAllWindows()
-#
-#
+
+
 #### A function to smoothen and add a vintage filter to either a video or image
-#
+
 # def smooth_vintage(frame):
 #     blurred = cv2.GaussianBlur(frame, (5, 5), 0)
-#
+
 #     return apply_vintage(blurred)
 #
 # cv2.imshow("Original", image)
 # cv2.imshow("Vinatge", apply_vintage(image))
 # cv2.imshow("Vintage plus smooth", smooth_vintage(image))
 # cv2.waitKey(0)
-#
+
 #### smoothning a live video and applying vintage filter
-#
+
 # while True:
 #     _, original_frame = video_capture.read()
 #     Invert = smooth_vintage(original_frame.copy())
@@ -104,7 +104,7 @@ import matplotlib.pyplot as plt
 #     cv2.imshow("original_frame", original_frame)
 #     if cv2.waitKey(2) & 0xFF == ord("q"):
 #         break
-#
+
 # video_capture.release()
 # cv2.destroyAllWindows()
 
@@ -117,8 +117,8 @@ import matplotlib.pyplot as plt
 # image1 = cv2.imread("4 balls.jpg")
 # image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
 # blurred = cv2.GaussianBlur(image2, (11, 11), 0)
-#
-#
+
+
 # edged = cv2.Canny(blurred, 30, 150)
 # (cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 # print("I count {} balls in this image".format(len(cnts)))
