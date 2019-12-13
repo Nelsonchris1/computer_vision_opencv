@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-image0 = cv2.imread("image_filer.jpg")
-beach0 = cv2.imread("beach.png")
 
 
 
@@ -13,7 +11,7 @@ An image in its original state is a spacial domain image
 To convert this image to the frequency domain, we perform fourier transform on the image  
 """
 
-def frequency_filter(image, dim = 450, r = 20, return_frames = False):
+def frequency_filter_hamming_window(image, dim = 450, r = 20, return_frames = False):
 
     # Pick one color top perform fourier transform to
     image = cv2.resize(image, (dim, dim), cv2.INTER_AREA)
@@ -73,8 +71,7 @@ def frequency_filter(image, dim = 450, r = 20, return_frames = False):
 
 
 
-image1 = cv2.imread("image_filer.jpg", 0)
-beach1 = cv2.imread("beach.png", 0)
+
 
 def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
     image = cv2.resize(image, (dim, dim), cv2.INTER_AREA)
@@ -82,11 +79,11 @@ def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
 
 
 
-    #
+
     crows, ccols = dim // 2, dim // 2
     mask = np.zeros((dim, dim), np.uint8)
 
-    #Take the brighter part and zero out the values around it
+    # Take the brighter part and zero out the values around it
     mask[crows - n: crows + n, ccols - n:ccols + n] = 1
 
     dft = cv2.dft(np.float32(image1), cv2.DFT_COMPLEX_OUTPUT)
@@ -108,12 +105,23 @@ def low_pass_filter(image, dim = 450, n = 50, return_frames = False):
 
 # Testing these functions with 2 images
 
+image1 = cv2.imread("image_filer.jpg", 0)
+beach1 = cv2.imread("beach.png", 0)
 
+image0 = cv2.imread("image_filer.jpg")
+beach0 = cv2.imread("beach.png")
+
+# When r = 200
 low_pass_filter(image1, 450, 200, True)
-low_pass_filter(image1, 400, 100, True)
 
-frequency_filter(image0, 450, 5, True)
-frequency_filter(image0, 500, 10, True)
+# when r = 100 and dim = 400
+low_pass_filter(beach1, 400, 100, True)
+
+# when dim = 450 and n  = 5
+frequency_filter_hamming_window(beach0, 450, 5, True)
+
+# when dim = 500 and n = 10
+frequency_filter_hamming_window(image0, 500, 10, True)
 
 
 
